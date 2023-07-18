@@ -133,46 +133,51 @@ nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 855
 geth attach /opt/etherData/node0/geth.ipc
 ```
 
-1. 导入账号
+1. 查看节点信息
+```shell
+admin.nodeInfo.enode
+```
+
+2. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
 ```shell
 personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
 ```
-2. 查看所有账户列表
+3. 查看所有账户列表
 ```shell
 eth.accounts
 ```
-2. 查看所有账户余额
+4. 查看所有账户余额
 ```shell
 eth.getBalance(eth.accounts[0])
 ```
 ```shell
 balanse=web3.fromWei(eth.getBalance(eth.accounts[0]),'ether')
 ```
-3. 查询区块高度
+5. 查询区块高度
 ```shell
 eth.blockNumber
 ```
-4. 查看矿工账户
+6. 查看矿工账户
 ```shell
 eth.coinbase
 ```
-5. 设置矿工账户
+7. 设置矿工账户
 ```shell
 miner.setEtherbase(eth.accounts[0])
 ```
-6. 启动挖矿（start（index） 的参数表示挖矿使用的线程数）/关闭挖矿
+8. 启动挖矿（start（index） 的参数表示挖矿使用的线程数）/关闭挖矿
 ```shell
-miner.start(5)
+miner.start()
 ```
 ```shell
 miner.stop()
 ```
-7. 交易操作
+9. 交易操作
 涉及链上交易时，需要先解锁账户。
 
 解锁账户
 
-personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时。默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
+personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时，默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
 ```shell
 personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
