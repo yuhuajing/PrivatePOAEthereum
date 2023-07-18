@@ -181,5 +181,9 @@ eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(4,
 eth.getTransaction("TxHash")
 ```
 
-
+8. 出块权限
+目前的验证节点通过发起提案增加出块节点，增加后的节点和当前的验证者轮流出块。
+```shell
+clique.propose("ADDR",true)
+```
 
