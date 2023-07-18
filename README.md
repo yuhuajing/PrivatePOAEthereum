@@ -49,7 +49,7 @@ geth account new --datadir ./node3
 > 0xe52d030C29aFb2fC470EB0FdF5c31287343004D2
 
 6. 构造创世区块
-```json
+```text
 1. chainID:自定义的链ID
 2. homesteadBlock、eip150Block、eip155Block、eip158Block、byzantiumBlock、constantinopleBlock、petersburgBlock：各项提案和升级的区块高度
 3. period:出块时间间隔，0为不允许出空交易块，会等待有交易才出块
@@ -81,12 +81,10 @@ genesis.json
    "difficulty":"1",
    "gasLimit":"800000000",
    "extradata":"0x00000000000000000000000000000000000000000000000000000000000000005534F5024146D16a5C1ce60A9f5a2e9794e3F9810000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-   //这里设置node1的节点地址为初始出块节点；
    "alloc":{
       "0x0B587FFD0BBa122fb5ddc19AD6eEcEB1D2dBbff7":{
          "balance":"1000000000000000000000"
       },
-      //分配1000个ETH，此处单位为Wei；
       "0x20b3ee0a86c4C26086Fc414D5E5b771F6abd7A3f":{
          "balance":"1000000000000000000000"
       },
