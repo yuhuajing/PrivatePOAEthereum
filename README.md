@@ -127,4 +127,59 @@ geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
 nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
 ```
 
+## 连接节点
+```shell
+geth attach /opt/etherData/node0/geth.ipc
+```
+1. 查看所有账户列表
+```shell
+eth.accounts
+```
+2. 查看所有账户余额
+```shell
+eth.getBalance(eth.accounts[0])
+```
+```shell
+balanse=web3.fromWei(eth.getBalance(eth.accounts[0]),'ether')
+```
+3. 查询区块高度
+```shell
+eth.blockNumber
+```
+4. 查看矿工账户
+```shell
+eth.coinbase
+```
+5. 设置矿工账户
+```shell
+miner.setEtherbase(eth.accounts[0])
+```
+6. 启动挖矿（start（index） 的参数表示挖矿使用的线程数）/关闭挖矿
+```shell
+miner.start(5)
+```
+```shell
+miner.stop()
+```
+7. 交易操作
+涉及链上交易时，需要先解锁账户。
+
+解锁账户
+
+personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时。默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
+```shell
+personal.unlockAccount(eth.accounts[0],'passward',0)
+```
+
+转账操作
+```shell
+eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(4,'ether')})
+```
+
+根据交易hash查询交易数据
+```shell
+eth.getTransaction("TxHash")
+```
+
+
 
