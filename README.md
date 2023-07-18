@@ -137,6 +137,10 @@ geth attach /opt/etherData/node0/geth.ipc
 ```shell
 admin.nodeInfo.enode
 ```
+通过addPeer命令添加节点.
+```shell
+admin.addPeer("节点信息")
+```
 
 2. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
 ```shell
@@ -196,4 +200,13 @@ eth.getTransaction("TxHash")
 目前的验证节点通过发起提案增加出块节点，增加后的节点和当前的验证者轮流出块。
 ```shell
 clique.propose("ADDR",true)
+```
+
+9. 关闭节点
+
+```shell
+ps -ef | grep geth
+```
+```shell
+kill -15 PID
 ```
