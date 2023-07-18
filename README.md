@@ -102,7 +102,7 @@ geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
 ```
 2. 启动node1
 ```shell
-nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine >> geth.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/node1/keystore/ --password /opt/etherData/node1/password.txt >> geth.log 2>&1 &
 ```
 
 ## 启动节点2
@@ -131,7 +131,12 @@ nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 855
 ```shell
 geth attach /opt/etherData/node0/geth.ipc
 ```
-1. 查看所有账户列表
+
+1. 导入账号
+```shell
+personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
+```
+2. 查看所有账户列表
 ```shell
 eth.accounts
 ```
