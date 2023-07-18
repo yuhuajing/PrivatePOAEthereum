@@ -98,22 +98,22 @@ genesis.json
 
 1. 创建创世区块
 ```shell
-geth --datadir "/opt/etherData/node0" init /opt/etherData/genesis.json
+geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
 ```
 2. 启动node1
 ```shell
-nohup geth --datadir "/opt/etherData/node0" --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console >> geth.log 2>&1 &
+nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console >> geth.log 2>&1 &
 ```
 
 ## 启动节点2
 
 1. 创建创世区块
 ```shell
-geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
+geth --datadir "/opt/etherData/node2" init /opt/etherData/genesis.json
 ```
 2. 启动node2
 ```shell
-nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8552 --http --http.port 8547 --ws --ws.port 8548 --port 30304 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
+nohup geth --datadir "/opt/etherData/node2" --networkid 12345 --authrpc.port 8552 --http --http.port 8547 --ws --ws.port 8548 --port 30304 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
 ```
 
 ## 启动节点3
@@ -124,7 +124,7 @@ geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
 ```
 2. 启动node3
 ```shell
-nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
+nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
 ```
 
 ## 连接节点
@@ -186,4 +186,3 @@ eth.getTransaction("TxHash")
 ```shell
 clique.propose("ADDR",true)
 ```
-
