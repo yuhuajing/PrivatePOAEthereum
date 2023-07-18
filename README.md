@@ -102,11 +102,8 @@ geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
 ```
 2. 启动node1
 ```shell
-nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --unlock 0x0B587FFD0BBa122fb5ddc19AD6eEcEB1D2dBbff7 --password password.txt --miner.etherbase 0x0B587FFD0BBa122fb5ddc19AD6eEcEB1D2dBbff7 >> geth.log 2>&1 &
 ```
-
-
-
 
 ## 启动节点2
 
