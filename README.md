@@ -2,23 +2,31 @@
 
 1. 安装golang gcc
 
-> sudo apt install build-essential
+```shell
+sudo apt install build-essential
+```
 
 2. Clone Ethereum Code
 
-> git clone https://github.com/ethereum/go-ethereum.git
+```shell
+git clone https://github.com/ethereum/go-ethereum.git
+```
 
 3. 编译geth工具
 
-> cd go-ethereum && make geth
+```shell
+ cd go-ethereum && make geth
+```
 
 4. 写入geth的环境变量
 ```shell
 vi ~/.bashrc
-
+```
+```shell
 export ETHPATH=/opt/go-ethereum/build/bin
 export PATH=$ETHPATH:$PATH
- 
+```
+```shell
 source ~/.bashrc
 ```
 
