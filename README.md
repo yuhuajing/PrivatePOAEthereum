@@ -102,7 +102,7 @@ geth --datadir "/opt/etherData/node0" init /opt/etherData/genesis.json
 ```
 2. 启动node1
 ```shell
-nohup geth --datadir "/opt/etherData/node0" --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
+nohup geth --datadir "/opt/etherData/node0" --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console >> geth.log 2>&1 &
 ```
 
 ## 启动节点2
@@ -126,3 +126,5 @@ geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
 ```shell
 nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
 ```
+
+
