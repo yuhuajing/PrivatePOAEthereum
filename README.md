@@ -1,24 +1,24 @@
 # PrivatePOAEthereum
 
-1. 安装golang gcc
+## 安装golang gcc
 
 ```shell
 sudo apt install build-essential
 ```
 
-2. Clone Ethereum Code
+## Clone Ethereum Code
 
 ```shell
 git clone https://github.com/ethereum/go-ethereum.git
 ```
 
-3. 编译geth工具
+##  编译geth工具
 
 ```shell
  cd go-ethereum && make geth
 ```
 
-4. 写入geth的环境变量
+## 写入geth的环境变量
 ```shell
 vi ~/.bashrc
 ```
@@ -30,7 +30,7 @@ export PATH=$ETHPATH:$PATH
 source ~/.bashrc
 ```
 
-5. 生成账户地址 
+## 生成账户地址 
 
 私钥通过用户输入的密码加密存储,可以通过golang解析出账户地址和私钥： https://github.com/yuhuajing/PrivatePOAEthereum/blob/main/parsePrivateKey.go
 
@@ -48,7 +48,7 @@ geth account new --datadir ./node3
 ```
 > 0xe52d030C29aFb2fC470EB0FdF5c31287343004D2
 
-6. 构造创世区块
+## 构造创世区块
 ```text
 1. chainID:自定义的链ID
 2. homesteadBlock、eip150Block、eip155Block、eip158Block、byzantiumBlock、constantinopleBlock、petersburgBlock：各项提案和升级的区块高度
@@ -94,5 +94,35 @@ genesis.json
    }
 }
 ```
+## 启动节点1
 
-7. 
+1. 创建创世区块
+```shell
+geth --datadir "/opt/etherData/node0" init /opt/etherData/genesis.json
+```
+2. 启动node1
+```shell
+nohup geth --datadir "/opt/etherData/node0" --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
+```
+
+## 启动节点2
+
+1. 创建创世区块
+```shell
+geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
+```
+2. 启动node2
+```shell
+nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8552 --http --http.port 8547 --ws --ws.port 8548 --port 30304 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
+```
+
+## 启动节点3
+
+1. 创建创世区块
+```shell
+geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
+```
+2. 启动node3
+```shell
+nohup geth --datadir "/opt/etherData/node1" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" console
+```
