@@ -122,7 +122,7 @@ geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
 2. 启动node1
 node1为预置的矿工，因此在启动节点时，需要解锁节点并开启出块操作。
 ```shell
-nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/node1/keystore/ --password /opt/etherData/node1/password.txt --nodiscover >> geth1.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545 --ws --ws.port 8546 --ws.addr 0.0.0.0 --ws.origins "*" --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/node1/keystore/ --password /opt/etherData/node1/password.txt --nodiscover >> geth1.log 2>&1 &
 ```
 
 ## 启动节点2
@@ -133,7 +133,7 @@ geth --datadir "/opt/etherData/node2" init /opt/etherData/genesis.json
 ```
 2. 启动node2
 ```shell
-nohup geth --datadir "/opt/etherData/node2" --networkid 12345 --authrpc.port 8552 --http --http.port 8547 --ws --ws.port 8548 --port 30304 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth2.log 2>&1 &
+nohup geth --datadir "/opt/etherData/node2" --networkid 12345 --authrpc.port 8552 --http --http.port 8547 --ws --ws.port 8548 --ws.addr 0.0.0.0 --ws.origins "*" --port 30304 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth2.log 2>&1 &
 ```
 
 ## 启动节点3
@@ -144,7 +144,7 @@ geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
 ```
 2. 启动node3
 ```shell
-nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth3.log 2>&1 &
+nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --ws.addr 0.0.0.0 --ws.origins "*" --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth3.log 2>&1 &
 ```
 
 ## 连接小狐狸钱包
