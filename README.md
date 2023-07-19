@@ -237,3 +237,8 @@ ps -ef | grep geth
 ```shell
 kill -15 PID
 ```
+
+10. 清除链数据
+```shell
+geth removedb --datadir "/opt/etherData/node1"
+```
