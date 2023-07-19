@@ -147,6 +147,14 @@ geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
 nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --ws --ws.port 8550 --port 30305 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth3.log 2>&1 &
 ```
 
+## 连接小狐狸钱包
+### 连接网络
+RPC： http://xxx:8545
+chainId: 12345
+名称和代币符号任意。
+### 导入节点
+输入节点私钥导入节点账户
+
 ## 连接节点
 ```shell
 geth attach /opt/etherData/node0/geth.ipc
