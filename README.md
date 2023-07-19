@@ -1,5 +1,24 @@
 # PrivatePOAEthereum
 
+## 正式使用硬件需求
+
+Hardware Requirements
+Minimum:
+
+CPU with 2+ cores
+4GB RAM
+1TB free storage space to sync the Mainnet
+8 MBit/sec download Internet service
+Recommended:
+
+Fast CPU with 4+ cores
+16GB+ RAM
+High-performance SSD with at least 1TB of free space
+25+ MBit/sec download Internet service
+
+出块节点： 开放30303 （测试可以开放8545，后续需要关闭）
+同步节点：开放30303 8545
+
 ## 安装golang gcc
 
 ```shell
