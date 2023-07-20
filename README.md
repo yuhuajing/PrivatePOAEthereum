@@ -144,7 +144,7 @@ geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
 ```
 2. 启动node3
 ```shell
-nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --http.corsdomain "*" --ws --ws.port 8550 --port 30305 --ws.addr 0.0.0.0 --ws.origins "*" --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth3.log 2>&1 &
+nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.port 8550 --port 30305 --ws.addr 0.0.0.0 --ws.origins "*" --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth3.log 2>&1 &
 ```
 
 ## 连接小狐狸钱包
