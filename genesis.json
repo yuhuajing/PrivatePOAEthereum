@@ -1,32 +1,38 @@
 {
-    "config":{
-       "chainId":12345,
-       "homesteadBlock":0,
-       "eip150Block":0,
-       "eip155Block":0,
-       "eip158Block":0,
-       "byzantiumBlock":0,
-       "constantinopleBlock":0,
-       "petersburgBlock":0,
-       "istanbulBlock":0,
-       "berlinBlock":0,
-       "clique":{
-          "period":5,
-          "epoch":300
-       }
-    },
-    "difficulty":"1",
-    "gasLimit":"8000000",
-    "extradata":"0x000000000000000000000000000000000000000000000000000000000000000060A6E5aF0525523A617CF6c1F85353FBA0408A7b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "alloc":{
-       "0x60A6E5aF0525523A617CF6c1F85353FBA0408A7b":{
-          "balance":"300000000000000000000000000"
-       },
-       "0x68d866baAfa993bc002cd35218c13f10aC54221d":{
-          "balance":"250000000000000000000000000"
-       },
-       "0xdd15A18B453eb92140A149f774D1C792919bB352":{
-          "balance":"450000000000000000000000000"
-       }
-    }
- }
+   "config":{
+      "chainId":12345,
+      "homesteadBlock":0,
+      "eip150Block":0,
+      "eip155Block":0,
+      "eip158Block":0,
+      "byzantiumBlock":0,
+      "constantinopleBlock":0,
+      "petersburgBlock":0,
+      "istanbulBlock":0,
+      "berlinBlock":0,
+      "londonBlock": 0,
+      "clique":{
+         "period":5,
+         "epoch":300
+      }
+   },
+   "alloc":{
+      "0x6593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f":{
+         "balance":"1000000000000000000000"
+      },
+      "0x6C345f0771a2f2B2694f97522D3371bF87b6BDF9":{
+         "balance":"1000000000000000000000"
+      },
+      "0xab6bbb89eFd62dF605C881E692960a4951238D71":{
+         "balance":"1000000000000000000000"
+      }
+   },
+  "coinbase": "0x6593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f",
+  "difficulty": "1",
+  "extraData": "0x00000000000000000000000000000000000000000000000000000000000000006593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "gasLimit": "800000000",
+  "nonce": "0x0000000000000000",
+  "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "timestamp": "0x00"
+}
