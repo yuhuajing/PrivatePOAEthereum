@@ -213,7 +213,7 @@ chainId: 12345
 
 ## 新机器操作
 ### 数据备份节点
-1. 连接控制台
+1. 相同命令启动后，连接控制台
    ```golang
    geth attach http://localhost:8545
    ```
@@ -231,13 +231,6 @@ admin.addPeer("节点信息")
 ```
 ### 出块节点（创世区块中的验证者地址）
 1. 连接控制台
-   ```golang
-   geth attach http://localhost:8545
-   ```
-   或者ipc连接
-   ```golang
-     geth attach /opt/etherData/node0/geth.ipc
-   ```
 2. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
 ```golang
 personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","KEY")
@@ -271,14 +264,7 @@ geth account new --datadir /opt/etherData
 > PrivateKey: e5ff5392711a137f3a4ac680e85ed29cb896427e89b4e0aa582b785722a84c49
 
 2. 连接控制台
-   ```golang
-   geth attach http://localhost:8545
-   ```
-   或者ipc连接
-   ```golang
-     geth attach /opt/etherData/node0/geth.ipc
-   ```
-3. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
+3. 根据节点私钥导入新的验证者账号，提供节点私钥、加密节点私钥的对称密钥
 ```golang
 personal.importRawKey("e5ff5392711a137f3a4ac680e85ed29cb896427e89b4e0aa582b785722a84c49","KEY")
 ```
@@ -292,7 +278,7 @@ clique.propose("新机器上生成的新验证者地址",true)
 
 回到新服务器的终端：
 
-1. 在新服务器上设置矿工地址(验证者地址)
+1. 在新服务器上设置矿工地址(新的验证者地址)
 ```golang
 miner.setEtherbase(eth.accounts[0])
 ```
