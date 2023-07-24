@@ -54,18 +54,18 @@ source ~/.bashrc
 私钥通过用户输入的密码加密存储,可以通过golang解析出账户地址和私钥： https://github.com/yuhuajing/PrivatePOAEthereum/blob/main/parsePrivateKey.go
 
 ```shell
-geth account new --datadir ./node1
+geth account new --datadir /opt/etherData
 ```
 > 0x6593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f
 > 797391c7bd2e156e52329ceb6471496798e0c125ef35c4c3393329bd2a64f3f5
 
 ```shell
-geth account new --datadir ./node2
+geth account new --datadir /opt/etherData
 ```
 > 0x6C345f0771a2f2B2694f97522D3371bF87b6BDF9
 > 08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e
 ```shell
-geth account new --datadir ./node3
+geth account new --datadir /opt/etherData
 ```
 > 0xab6bbb89eFd62dF605C881E692960a4951238D71
 > b5cd29c38830904b433c52e5a8b8ac1a8349175afd8d6b8cf60333ad45ccdc1a
@@ -114,7 +114,7 @@ genesis.json
    },
   "coinbase": "0x6593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f",
   "difficulty": "1",
-  "extraData": "0x00000000000000000000000000000000000000000000000000000000000000006593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000验证者地址0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
   "gasLimit": "800000000",
   "nonce": "0x0000000000000000",
   "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -122,40 +122,87 @@ genesis.json
   "timestamp": "0x00"
 }
 ```
-## 启动节点1
+## 节点启动命令--三个节点分布在三台机器，在同个机器的话，需要手动更改默认端口
 
-1. 创建创世区块
+### 创建创世区块
 ```shell
-geth --datadir "/opt/etherData/node1" init /opt/etherData/genesis.json
+geth --datadir "/opt/etherData" init /opt/etherData/genesis.json
 ```
-2. 启动node1
-node1为预置的矿工，因此在启动节点时，需要解锁节点并开启出块操作。
+### 节点启动命令--任选一种方式即可
+1. 节点正常启动
+```golang
+nohup geth --identity "myethereum" --datadir /opt/etherData --allow-insecure-unlock --networkid 12345 --http --http.addr 0.0.0.0  --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.origins "*"  --http.api "eth,net,web3,personal,admin,miner"  --rpc.enabledeprecatedpersonal --syncmode "full" --nodiscover >> geth.log 2>&1 &
+```
+或者添加矿工节点启动命令--直接在启动时指定矿工账号，一启动就执行挖矿
 ```shell
-nohup geth --identity "myethereum" --datadir /opt/etherData/node1 --networkid 12345 --authrpc.port 8551 --http --http.port 8545  --http.corsdomain "*" --graphql --ws --ws.port 8546 --ws.addr 0.0.0.0 --ws.origins "*" --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/node1/keystore/ --password /opt/etherData/node1/password.txt --nodiscover >> geth1.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData/ --networkid 12345 --authrpc.port 8551 --http --http.port 8545  --http.corsdomain "*" --graphql --ws --ws.port 8546 --ws.addr 0.0.0.0 --ws.origins "*" --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/keystore/ --password /opt/etherData/password.txt --nodiscover >> geth1.log 2>&1 &
 ```
+2. 连接控制台
+   ```golang
+   geth attach http://localhost:8545
+   ```
+   或者ipc连接
+   ```golang
+     geth attach /opt/etherData/node0/geth.ipc
+   ```
 
-## 启动节点2
-
-1. 创建创世区块
-```shell
-geth --datadir "/opt/etherData/node2" init /opt/etherData/genesis.json
+3. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
+```golang
+personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
 ```
-2. 启动node2
-```shell
-nohup geth --datadir "/opt/etherData/node2" --networkid 12345 --authrpc.port 8552 --http --http.port 8547 --http.corsdomain "*" --ws --ws.port 8548 --ws.addr 0.0.0.0 --ws.origins "*" --port 30304 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth2.log 2>&1 &
+4. 设置矿工地址(验证者地址)
+```golang
+miner.setEtherbase(eth.accounts[0])
 ```
-
-## 启动节点3
-
-1. 创建创世区块
-```shell
-geth --datadir "/opt/etherData/node3" init /opt/etherData/genesis.json
+5. 查看矿工账户
+```golang
+eth.coinbase
 ```
-2. 启动node3
-```shell
-nohup geth --datadir "/opt/etherData/node3" --networkid 12345 --authrpc.port 8553 --http --http.port 8549 --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.port 8550 --port 30305 --ws.addr 0.0.0.0 --ws.origins "*" --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" >> geth3.log 2>&1 &
+6. 解锁账户--需要指定时间，默认解锁300s
+personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时，默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
+```golang
+personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
-
+7. 启动挖矿（start（） 的参数表示挖矿使用的线程数）/关闭挖矿
+```golang
+miner.start()
+```
+```golang
+miner.stop()
+```
+8. 查看节点信息
+```golang
+admin.nodeInfo.enode
+```
+通过addPeer命令添加节点.
+```golang
+admin.addPeer("节点信息")
+```
+### 查询链上数据--连接控制台后的操作
+1. 查看所有账户列表
+```golang
+eth.accounts
+```
+2. 查看所有账户余额
+```golang
+eth.getBalance(eth.accounts[0])
+```
+```golang
+balanse=web3.fromWei(eth.getBalance(eth.accounts[0]),'ether')
+```
+3. 查询区块高度
+```golang
+eth.blockNumber
+```
+4. 交易操作
+涉及链上交易时，需要先解锁账户。
+```golang
+eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(4,'ether')})
+```
+5. 根据交易hash查询交易数据
+```golang
+eth.getTransaction("TxHash")
+```
 ## 连接小狐狸钱包
 ### 连接网络
 RPC： http://xxx:8545
@@ -164,93 +211,95 @@ chainId: 12345
 ### 导入节点
 输入节点私钥导入节点账户
 
-## 连接节点
-```shell
-geth attach /opt/etherData/node0/geth.ipc
-```
-
-1. 查看节点信息
-```shell
-admin.nodeInfo.enode
-```
-通过addPeer命令添加节点.
-```shell
-admin.addPeer("节点信息")
-```
-
+## 添加矿工节点
+### 添加创世文件中指定的验证者节点，增加出块节点
+在新机器上执行以下操作：
+1. 连接控制台
+   ```golang
+   geth attach http://localhost:8545
+   ```
+   或者ipc连接
+   ```golang
+     geth attach /opt/etherData/node0/geth.ipc
+   ```
 2. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
-```shell
+```golang
 personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
 ```
-3. 查看所有账户列表
-```shell
-eth.accounts
-```
-4. 查看所有账户余额
-```shell
-eth.getBalance(eth.accounts[0])
-```
-```shell
-balanse=web3.fromWei(eth.getBalance(eth.accounts[0]),'ether')
-```
-5. 查询区块高度
-```shell
-eth.blockNumber
-```
-6. 查看矿工账户
-```shell
-eth.coinbase
-```
-7. 设置矿工账户
-```shell
+3. 设置矿工地址(验证者地址)
+```golang
 miner.setEtherbase(eth.accounts[0])
 ```
-8. 启动挖矿（start（） 的参数表示挖矿使用的线程数）/关闭挖矿
-```shell
-miner.start()
+4. 查看矿工账户
+```golang
+eth.coinbase
 ```
-```shell
-miner.stop()
-```
-9. 交易操作
-涉及链上交易时，需要先解锁账户。
-
-解锁账户
-
+5. 解锁账户--需要指定时间，默认解锁300s
 personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时，默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
-```shell
+```golang
 personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
-
-转账操作
-```shell
-eth.sendTransaction({from:eth.accounts[0],to:eth.accounts[1],value:web3.toWei(4,'ether')})
+6. 启动挖矿（start（） 的参数表示挖矿使用的线程数）
+```golang
+miner.start()
 ```
 
-根据交易hash查询交易数据
-```shell
-eth.getTransaction("TxHash")
-```
 
-8. 出块权限
+### 添加新的验证者节点
+新机器执行以下操作
+1. 生成节点
+```shell
+geth account new --datadir /opt/etherData
+```
+> Address: 0x68d866baAfa993bc002cd35218c13f10aC54221d
+
+> PrivateKey: e5ff5392711a137f3a4ac680e85ed29cb896427e89b4e0aa582b785722a84c49
+
+2. 连接控制台
+   ```golang
+   geth attach http://localhost:8545
+   ```
+   或者ipc连接
+   ```golang
+     geth attach /opt/etherData/node0/geth.ipc
+   ```
+
+3. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
+```golang
+personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
+```
+4. 设置矿工地址(验证者地址)
+```golang
+miner.setEtherbase(eth.accounts[0])
+```
+5. 查看矿工账户
+```golang
+eth.coinbase
+```
+6. 解锁账户--需要指定时间，默认解锁300s
+personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时，默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
+```golang
+personal.unlockAccount(eth.accounts[0],'passward',0)
+```
+在导入创世区块验证者节点的机器上执行以下操作：
+
+1. 增加验证者节点（需要半数以上的验证者同意）
 目前的验证节点通过发起提案增加出块节点，增加后的节点和当前的验证者轮流出块。
 ```shell
-clique.propose("ADDR",true)
+clique.propose("新机器上生成的新验证者地址",true)
+```
+6. 启动挖矿（start（） 的参数表示挖矿使用的线程数）/关闭挖矿
+```golang
+miner.start()
 ```
 
-9. 关闭节点
-
-```shell
-ps -ef | grep geth
-```
-```shell
-kill -15 PID
+## 关闭节点
+```golang
+ps aux | grep geth | grep -v grep | awk '{print $2}'| xargs kill -15
 ```
 
-10. 清除链数据
-```shell
-geth removedb --datadir "/opt/etherData/node1"
-```
 
-11. 关闭链
->  ps aux | grep geth | grep -v grep | awk '{print $2}'| xargs kill -15
+## 清除链数据
+```golang
+geth removedb --datadir "/opt/etherData/"
+```
