@@ -240,6 +240,7 @@ personal.unlockAccount(address, passphrase, duration),密码和解锁时长都�
 personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
 // 如果要成为出块结点的话，就启动挖矿进程
+
 6. 启动挖矿
 ```golang
 miner.start()
