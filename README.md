@@ -211,9 +211,25 @@ chainId: 12345
 ### 导入节点
 输入节点私钥导入节点账户
 
-## 新机器解锁验证者节点
-### 添加创世文件中指定的验证者节点
-在新机器上执行以下操作：
+## 新机器操作
+### 数据备份节点
+1. 连接控制台
+   ```golang
+   geth attach http://localhost:8545
+   ```
+   或者ipc连接
+   ```golang
+     geth attach /opt/etherData/node0/geth.ipc
+   ```
+2. 建立连接
+```golang
+admin.nodeInfo.enode
+```
+通过addPeer命令添加节点.
+```golang
+admin.addPeer("节点信息")
+```
+### 出块节点（创世区块中的验证者地址）
 1. 连接控制台
    ```golang
    geth attach http://localhost:8545
@@ -224,7 +240,7 @@ chainId: 12345
    ```
 2. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
 ```golang
-personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
+personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","KEY")
 ```
 3. 设置矿工地址(验证者地址)
 ```golang
@@ -239,17 +255,15 @@ personal.unlockAccount(address, passphrase, duration),密码和解锁时长都�
 ```golang
 personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
-// 如果要成为出块结点的话，就启动挖矿进程
-
 6. 启动挖矿
 ```golang
 miner.start()
 ```
 
-### 添加新的验证者节点
+### 出块节点（新的验证者地址）
 新机器执行以下操作
 1. 生成节点
-```shell
+```golang
 geth account new --datadir /opt/etherData
 ```
 > Address: 0x68d866baAfa993bc002cd35218c13f10aC54221d
@@ -264,32 +278,34 @@ geth account new --datadir /opt/etherData
    ```golang
      geth attach /opt/etherData/node0/geth.ipc
    ```
-
 3. 根据节点私钥导入账号，提供节点私钥、加密节点私钥的对称密钥
 ```golang
-personal.importRawKey("08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e","yu201219jing")
+personal.importRawKey("e5ff5392711a137f3a4ac680e85ed29cb896427e89b4e0aa582b785722a84c49","KEY")
 ```
-4. 设置矿工地址(验证者地址)
+4. 在导入创世区块验证者节点的机器上执行以下操作：（需要半数以上的验证者同意）
+
+目前的验证节点通过发起提案增加出块节点，增加后的节点和当前的验证者轮流出块。
+
+```shell
+clique.propose("新机器上生成的新验证者地址",true)
+```
+
+回到新服务器的终端：
+
+1. 在新服务器上设置矿工地址(验证者地址)
 ```golang
 miner.setEtherbase(eth.accounts[0])
 ```
-5. 查看矿工账户
+2. 查看矿工账户
 ```golang
 eth.coinbase
 ```
-6. 解锁账户--需要指定时间，默认解锁300s
+3. 解锁账户--需要指定时间，默认解锁300s
 personal.unlockAccount(address, passphrase, duration),密码和解锁时长都是可选的。如果密码为null，控制台将提示交互输密码。解密的密钥将保存在内存中直到解锁周期超时，默认的解锁周期为300秒。将解锁周期设置为0秒将解锁该密钥直到退出geth程序。
 ```golang
 personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
-在导入创世区块验证者节点的机器上执行以下操作：
-
-1. 增加验证者节点（需要半数以上的验证者同意）
-目前的验证节点通过发起提案增加出块节点，增加后的节点和当前的验证者轮流出块。
-```shell
-clique.propose("新机器上生成的新验证者地址",true)
-```
-2. 启动挖矿（start（） 的参数表示挖矿使用的线程数）/关闭挖矿
+4. 启动挖矿（start（） 的参数表示挖矿使用的线程数）/关闭挖矿
 ```golang
 miner.start()
 ```
