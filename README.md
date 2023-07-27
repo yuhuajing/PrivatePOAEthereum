@@ -52,23 +52,25 @@ source ~/.bashrc
 ## 生成账户地址 
 
 私钥通过用户输入的密码加密存储,可以通过golang解析出账户地址和私钥： https://github.com/yuhuajing/PrivatePOAEthereum/blob/main/parsePrivateKey.go
+```text
+geth account new --datadir /opt/etherData
+```
+> Address: 0x430CbEEffa18BD7ad0Ae5BAc062f130b6c8129B6
+
+> PrivateKey: 243c630943018e6a6a0c2a183c640fd420dd5ad22e6b0ef93170580393882ae7
 
 ```shell
 geth account new --datadir /opt/etherData
 ```
-> 0x6593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f
-> 797391c7bd2e156e52329ceb6471496798e0c125ef35c4c3393329bd2a64f3f5
+> Address: 0x413E129dD6b217E4a8702821ee069e1929D17c6a
 
+> PrivateKey: a7f77faf8ff605de37c63c4c3dc97eaf7d4b68d4de9835aac335869d9bca65be
 ```shell
 geth account new --datadir /opt/etherData
 ```
-> 0x6C345f0771a2f2B2694f97522D3371bF87b6BDF9
-> 08a7533871d3a2e01d3a8849320cbfb703eb20c5dd2a9ccd2d9780eba5659c8e
-```shell
-geth account new --datadir /opt/etherData
-```
-> 0xab6bbb89eFd62dF605C881E692960a4951238D71
-> b5cd29c38830904b433c52e5a8b8ac1a8349175afd8d6b8cf60333ad45ccdc1a
+> Address: 0x9449202f3E28Dd4595b0BE3c1736922Ba5aAce71
+
+> PrivateKey: 1b336b83fc8288bad83133b061e80b408d1d5ba01fc1852995758145eda06c3c
 
 ## 构造创世区块
 ```text
