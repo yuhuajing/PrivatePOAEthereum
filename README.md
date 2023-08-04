@@ -307,3 +307,6 @@ ps aux | grep geth | grep -v grep | awk '{print $2}'| xargs kill -15
 ```golang
 geth removedb --datadir "/opt/etherData/"
 ```
+
+
+nohup geth --identity "myethereum" --datadir /opt/etherData/ --networkid 12345 --authrpc.port 8551 --http --http.port 8545  --http.corsdomain "*" --ws --ws.port 8546 --ws.addr 0.0.0.0 --ws.origins "*" --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x430CbEEffa18BD7ad0Ae5BAc062f130b6c8129B6 --unlock 0x430CbEEffa18BD7ad0Ae5BAc062f130b6c8129B6 --keystore /opt/etherData/node0/keystore/ --password /opt/etherData/node0/password.txt --nodiscover >> geth1.log 2>&1 &
