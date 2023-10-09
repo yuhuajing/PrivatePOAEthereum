@@ -117,7 +117,7 @@ genesis.json
   "coinbase": "0x6593B47be3F4Bd1154c2faFb8Ad4aC4EFddD618f",
   "difficulty": "1",
   "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000验证者地址0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-  "gasLimit": "800000000",
+  "gasLimit": "80000000",
   "nonce": "0x0000000000000000",
   "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -133,7 +133,7 @@ geth --datadir "/opt/etherData" init /opt/etherData/genesis.json
 ### 节点启动命令--任选一种方式即可
 1. 节点正常启动
 ```golang
-nohup geth --identity "myethereum" --datadir /opt/etherData --allow-insecure-unlock --networkid 12345 --http --http.addr 0.0.0.0  --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.origins "*"  --http.api "eth,net,debug,txpool,web3,personal,admin,miner"  --rpc.enabledeprecatedpersonal --syncmode "full" --nodiscover >> geth.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData --allow-insecure-unlock --networkid 12345 --http --http.addr 0.0.0.0  --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.origins "*"  --http.api "eth,net,debug,txpool,web3,personal,admin,miner"  --rpc.enabledeprecatedpersonal --miner.gaslimit 80000000 --syncmode "full" --nodiscover >> geth.log 2>&1 &
 ```
 或者添加矿工节点启动命令--直接在启动时指定矿工账号，一启动就执行挖矿
 ```shell
@@ -165,6 +165,12 @@ personal.unlockAccount(address, passphrase, duration),密码和解锁时长都�
 ```golang
 personal.unlockAccount(eth.accounts[0],'passward',0)
 ```
+
+矿工设置GasLimit
+```golang
+miner.setGasLimit(80000000)
+```
+
 7. 启动挖矿（start（） 的参数表示挖矿使用的线程数）/关闭挖矿
 ```golang
 miner.start()
