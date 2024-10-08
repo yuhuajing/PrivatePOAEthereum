@@ -133,11 +133,11 @@ geth --datadir "/opt/etherData" init /opt/etherData/genesis.json
 ### 节点启动命令--任选一种方式即可
 1. 节点正常启动
 ```golang
-nohup geth --identity "myethereum" --datadir /opt/etherData --allow-insecure-unlock --networkid 12345 --http --http.addr 0.0.0.0  --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.origins "*"  --http.api "eth,net,debug,txpool,web3,personal,admin,miner"  --rpc.enabledeprecatedpersonal --miner.gaslimit 80000000 --syncmode "full" --nodiscover >> geth.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData --allow-insecure-unlock --networkid 12345 --http --http.addr 0.0.0.0  --http.corsdomain "*" --ws --ws.addr 0.0.0.0 --ws.origins "*"  --http.api "eth,net,debug,txpool,web3,personal,admin,miner"  --rpc.enabledeprecatedpersonal --miner.gaslimit 80000000 --syncmode "full" --nodiscover --rpc.enabledeprecatedpersonal >> geth.log 2>&1 &
 ```
 或者添加矿工节点启动命令--直接在启动时指定矿工账号，一启动就执行挖矿
 ```shell
-nohup geth --identity "myethereum" --datadir /opt/etherData/ --networkid 12345 --authrpc.port 8551 --http --http.port 8545  --http.corsdomain "*" --graphql --ws --ws.port 8546 --ws.addr 0.0.0.0 --ws.origins "*" --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,debug,txpool,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/keystore/ --password /opt/etherData/password.txt --nodiscover >> geth1.log 2>&1 &
+nohup geth --identity "myethereum" --datadir /opt/etherData/ --networkid 12345 --authrpc.port 8551 --http --http.port 8545  --http.corsdomain "*" --graphql --ws --ws.port 8546 --ws.addr 0.0.0.0 --ws.origins "*" --port 30303 --http.addr 0.0.0.0 --http.api "eth,net,debug,txpool,web3,personal,admin,miner" --allow-insecure-unlock --rpc.enabledeprecatedpersonal --syncmode "full" --mine --miner.etherbase 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --unlock 0x6593b47be3f4bd1154c2fafb8ad4ac4efddd618f --keystore /opt/etherData/keystore/ --password /opt/etherData/password.txt --nodiscover --rpc.enabledeprecatedpersonal >> geth1.log 2>&1 &
 ```
 2. 连接控制台
    ```golang
